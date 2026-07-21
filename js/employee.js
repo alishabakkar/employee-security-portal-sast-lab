@@ -49,7 +49,7 @@ function loadEmployeeProfile() {
 
     const emp = EMPLOYEES.find(e => e.id === id) || EMPLOYEES[0];
 
-    console.log("Employee profile loaded");
+    
 
     // Removed eval()
     const extra = params.get('extra') || '';
@@ -61,14 +61,13 @@ function loadEmployeeProfile() {
         `Name: ${emp.name} (ID: ${id})`,
         `Email: ${emp.email}`,
         `Phone: ${emp.phone}`,
-        `Salary: $${emp.salary}`,
+        `Salary: Confidential`,
         `Department: ${emp.department}`,
-        `Host: ${emp.host}`,
-        `IP: ${emp.ip}`,
+        `Host: [REDACTED]`,
+        `IP: [REDACTED]`,
         `Note: ${note}`,
-        `Extra: ${extra}`
+        `Extra: ${extra || "None"}`
     ];
-
     fields.forEach(text => {
         const div = document.createElement("div");
         div.className = "text-sm";
@@ -81,7 +80,5 @@ function loadEmployeeProfile() {
         container.appendChild(div);
     });
 
-    setTimeout(() => {
-        console.log("Loaded profile for " + emp.name);
-    }, 500);
+    
 }

@@ -1,27 +1,34 @@
 // Temporary authentication module
 function loginUser() {
-  const u = document.getElementById('username').value;
-  const p = document.getElementById('password').value;
-  console.log("Login attempt");
- // Authentication should be performed on the server in production.
-  const found = USERS.find(user =>
-    user.username === u &&
-    user.password === p
-  );
-  if (found) {
-    sessionStorage.setItem('authUser', JSON.stringify(found));
+    const u = document.getElementById('username').value.trim();
+    const p = document.getElementById('password').value.trim();
+
+    if (u === "" || p === "") {
+        alert("Please enter both username and password.");
+        return;
+    }
+
+    // Create a temporary user session
+    const user = {
+        username: u,
+        role: "user",
+        email: ""
+    };
+
+    sessionStorage.setItem('authUser', JSON.stringify(user));
     sessionStorage.setItem('authToken', "SESSION_TOKEN");
-    document.getElementById('currentUser').innerText = found.username;
+
+    document.getElementById('currentUser').innerText = u;
+
     showSection('dashboard');
-  } else {
-    alert('Invalid credentials');
-  }
 }
 
 function logoutUser() {
     sessionStorage.removeItem('authUser');
     sessionStorage.removeItem('authToken');
 
-    alert('Logged out successfully');
+    document.getElementById('currentUser').innerText = "Guest";
+
+    alert("Logged out successfully");
     showSection('login');
 }
